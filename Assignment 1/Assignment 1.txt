@@ -1,0 +1,134 @@
+Q1
+Factorial with Edge Case Handling 
+Problem Description:
+You are given a non-negative integer n. Write a recursive function to compute its factorial. 
+The factorial of a number n is defined as: 
+ n! = n × (n-1) × (n-2) × ... × 1 
+ By definition, 0! = 1 
+Your function must correctly handle the edge case when n = 0. Also consider what should 
+happen if a negative number is passed. 
+Requirements:
+ Use recursion only (no loops). 
+ Clearly define the base case. 
+ Ensure your function does not cause infinite recursion
+----------------------Ans--------------
+public class Factorial {
+    public static long factorial(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Factorial is not defined for negative numbers.");
+        }
+        if (n == 0) {
+            return 1;  // Base case: 0! = 1
+        }
+        return n * factorial(n - 1);  // Recursive case
+    }
+
+    public static void main(String[] args) {
+        System.out.println(factorial(0));  // Output: 1
+        System.out.println(factorial(5));  // Output: 120
+    }
+}
+
+===========================================
+Q2
+Fibonacci Sequence with Recursive Definition 
+Problem Description:
+The Fibonacci sequence is defined as: 
+ F(0) = 0, F(1) = 1 
+ F(n) = F(n-1) + F(n-2) for n ≥ 2 
+Write a recursive function that returns the nth Fibonacci number. 
+Example:
+Input: n = 5 
+Output: 5
+------------------Ans------------------------
+public class Fibonacci {
+    public static int fibonacci(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Fibonacci not defined for negative indices.");
+        }
+        if (n == 0) return 0;      // Base case 1: F(0) = 0
+        if (n == 1) return 1;      // Base case 2: F(1) = 1
+        return fibonacci(n-1) + fibonacci(n-2);  // Recursive case
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(fibonacci(0));  // 0
+        System.out.println(fibonacci(5));  // 5
+        System.out.println(fibonacci(10)); // 55
+    }
+}
+================================
+Q3
+ Recursive String Reversal 
+Problem Description:
+Given a string, write a recursive function to reverse it. You are not allowed to use loops or builtin reverse functions. 
+Hint:
+Think about reducing the problem size by removing one character at a time and solving the 
+smaller problem. 
+Example:
+Input: "recursion"
+Output: "noisrucer"
+Requirements:
+ Base case: when the string becomes empty or has one character. 
+ Recursive step: process the remaining substring
+
+----------------Ans----------------------------
+
+public class StringReverse {
+    public static String reverse(String str) {
+        // Base case: empty or single character
+        if (str == null || str.length() <= 1) {
+            return str;
+        }
+        // Recursive case: reverse rest + first character
+        return reverse(str.substring(1)) + str.charAt(0);
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(reverse("recursion"));  // "noisrucer"
+        System.out.println(reverse("hello"));      // "olleh"
+        System.out.println(reverse("a"));          // "a"
+        System.out.println(reverse(""));           // ""
+    }
+}
+============================
+Q4
+ Check if an Array is Sorted 
+Problem Description:
+Given an integer array, determine whether it is sorted in ascending order using recursion. 
+Instead of checking the whole array at once, compare elements step by step recursively. 
+Approach Hint:
+ Compare the current element with the next one. 
+ Then recursively check the rest of the array. 
+Example:
+Input: [2, 4, 6, 8] → Output: true
+Input: [3, 5, 2, 9] → Output: false
+Requirements:
+ Do not use loops. 
+ Use an index parameter to track position.
+-------------------Ans---------------------
+
+public class SortedArray {
+    public static boolean isSorted(int[] arr, int index) {
+        // Base cases: reached end or single element left
+        if (index >= arr.length - 1) {
+            return true;
+        }
+        // Check current vs next element
+        if (arr[index] > arr[index + 1]) {
+            return false;
+        }
+        // Recursive call for remaining array
+        return isSorted(arr, index + 1);
+    }
+    
+    // Convenience wrapper
+    public static boolean isSorted(int[] arr) {
+        return isSorted(arr, 0);
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(isSorted(new int[]{2, 4, 6, 8}));  // true
+        System.out.println(isSorted(new int[]{3, 5, 2, 9}));  // false
+    }
+}
