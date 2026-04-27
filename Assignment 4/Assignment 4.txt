@@ -1,0 +1,982 @@
+Q1. Bubble Sort 
+Write a program to implement Bubble Sort on an integer array. 
+Test Cases: 
+• Input: [5, 2, 9, 1, 5, 6] → Output: [1, 2, 5, 5, 6, 9] 
+• Input: [3, 2, 1] → Output: [1, 2, 3] 
+• Input: [1, 2, 3] → Output: [1, 2, 3]
+------------
+public class BubbleSort {
+    
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        
+        // Outer loop: n-1 passes maximum
+        for (int i = 0; i < n - 1; i++) {
+            // Inner loop: compare adjacent elements
+            for (int j = 0; j < n - i - 1; j++) {
+                // Swap if current > next
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+    
+    public static void main(String[] args) {
+        // Test Case 1: [5, 2, 9, 1, 5, 6]
+        int[] arr1 = {5, 2, 9, 1, 5, 6};
+        System.out.println("Input: " + java.util.Arrays.toString(arr1));
+        bubbleSort(arr1.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr1));
+        System.out.println();
+        
+        // Test Case 2: [3, 2, 1]
+        int[] arr2 = {3, 2, 1};
+        System.out.println("Input: " + java.util.Arrays.toString(arr2));
+        bubbleSort(arr2.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr2));
+        System.out.println();
+        
+        // Test Case 3: [1, 2, 3] (already sorted)
+        int[] arr3 = {1, 2, 3};
+        System.out.println("Input: " + java.util.Arrays.toString(arr3));
+        bubbleSort(arr3.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr3));
+    }
+}
+==================================
+Q2
+Q2. Insertion Sort 
+Implement Insertion Sort to arrange elements in ascending order. 
+Test Cases: 
+• Input: [12, 11, 13, 5, 6] → Output: [5, 6, 11, 12, 13] 
+• Input: [4, 3, 2, 10, 12] → Output: [2, 3, 4, 10, 12]
+--------------
+public class InsertionSort {
+    
+    public static void insertionSort(int[] arr) {
+        int n = arr.length;
+        
+        // Start from second element (index 1)
+        for (int i = 1; i < n; i++) {
+            int key = arr[i];  // Current element to insert
+            int j = i - 1;     // Last element of sorted portion
+            
+            // Shift elements greater than key one position right
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            
+            // Insert key at correct position
+            arr[j + 1] = key;
+        }
+    }
+    
+    public static void main(String[] args) {
+        // Test Case 1: [12, 11, 13, 5, 6]
+        int[] arr1 = {12, 11, 13, 5, 6};
+        System.out.println("Input: " + java.util.Arrays.toString(arr1));
+        insertionSort(arr1.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr1));
+        System.out.println();
+        
+        // Test Case 2: [4, 3, 2, 10, 12]
+        int[] arr2 = {4, 3, 2, 10, 12};
+        System.out.println("Input: " + java.util.Arrays.toString(arr2));
+        insertionSort(arr2.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr2));
+    }
+}
+==================================
+Q3
+Q3. Selection Sort 
+Sort an array using Selection Sort. 
+Test Cases: 
+• Input: [64, 25, 12, 22, 11] → Output: [11, 12, 22, 25, 64] 
+• Input: [29, 10, 14, 37, 13] → Output: [10, 13, 14, 29, 37]
+---------------
+public class SelectionSort {
+    
+    public static void selectionSort(int[] arr) {
+        int n = arr.length;
+        
+        // Outer loop: for each position i
+        for (int i = 0; i < n - 1; i++) {
+            // Find minimum element in unsorted portion
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (arr[j] < arr[minIndex]) {
+                    minIndex = j;  // Update minimum index
+                }
+            }
+            
+            // Swap minimum element with current position
+            int temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
+        }
+    }
+    
+    public static void main(String[] args) {
+        // Test Case 1: [64, 25, 12, 22, 11]
+        int[] arr1 = {64, 25, 12, 22, 11};
+        System.out.println("Input: " + java.util.Arrays.toString(arr1));
+        selectionSort(arr1.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr1));
+        System.out.println();
+        
+        // Test Case 2: [29, 10, 14, 37, 13]
+        int[] arr2 = {29, 10, 14, 37, 13};
+        System.out.println("Input: " + java.util.Arrays.toString(arr2));
+        selectionSort(arr2.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr2));
+    }
+}
+===========================
+Q4
+Q4. Merge Sort 
+Write a recursive program to implement Merge Sort. 
+Test Cases: 
+• Input: [38, 27, 43, 3, 9, 82, 10] → Output: [3, 9, 10, 27, 38, 43, 82] 
+• Input: [5, 4, 3, 2, 1] → Output: [1, 2, 3, 4, 5]
+-------------
+public class MergeSort {
+    
+    // Main merge sort function
+    public static void mergeSort(int[] arr, int left, int right) {
+        if (left < right) {
+            // Find middle point
+            int mid = left + (right - left) / 2;
+            
+            // Recursively sort left half
+            mergeSort(arr, left, mid);
+            
+            // Recursively sort right half
+            mergeSort(arr, mid + 1, right);
+            
+            // Merge sorted halves
+            merge(arr, left, mid, right);
+        }
+    }
+    
+    // Merge two sorted halves
+    public static void merge(int[] arr, int left, int mid, int right) {
+        // Create temp arrays
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+        
+        int[] leftArr = new int[n1];
+        int[] rightArr = new int[n2];
+        
+        // Copy data to temp arrays
+        for (int i = 0; i < n1; i++)
+            leftArr[i] = arr[left + i];
+        for (int j = 0; j < n2; j++)
+            rightArr[j] = arr[mid + 1 + j];
+        
+        // Merge temp arrays back into arr
+        int i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if (leftArr[i] <= rightArr[j]) {
+                arr[k] = leftArr[i];
+                i++;
+            } else {
+                arr[k] = rightArr[j];
+                j++;
+            }
+            k++;
+        }
+        
+        // Copy remaining elements
+        while (i < n1) {
+            arr[k] = leftArr[i];
+            i++;
+            k++;
+        }
+        while (j < n2) {
+            arr[k] = rightArr[j];
+            j++;
+            k++;
+        }
+    }
+    
+    // Wrapper method
+    public static void mergeSort(int[] arr) {
+        mergeSort(arr, 0, arr.length - 1);
+    }
+    
+    public static void main(String[] args) {
+        // Test Case 1: [38, 27, 43, 3, 9, 82, 10]
+        int[] arr1 = {38, 27, 43, 3, 9, 82, 10};
+         System.out.println("Input: " + java.util.Arrays.toString(arr1));
+        mergeSort(arr1.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr1));
+        System.out.println();
+        
+        // Test Case 2: [5, 4, 3, 2, 1]
+        int[] arr2 = {5, 4, 3, 2, 1};
+        System.out.println("Input: " + java.util.Arrays.toString(arr2));
+        mergeSort(arr2.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr2));
+    }
+}
+==============================
+Q5
+Q5. Quick Sort 
+Implement Quick Sort using the last element as the pivot. 
+Test Cases: 
+• Input: [10, 7, 8, 9, 1, 5] → Output: [1, 5, 7, 8, 9, 10] 
+• Input: [1, 1, 1, 1] → Output: [1, 1, 1, 1]
+-----------------
+public class QuickSort {
+    
+    // Main quicksort function
+    public static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            // Partition array and get pivot index
+            int pi = partition(arr, low, high);
+            
+            // Recursively sort elements before and after partition
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+    
+    // Partition function using last element as pivot
+    public static int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];  // Choose last element as pivot
+        int i = low - 1;        // Index of smaller element
+        
+        for (int j = low; j < high; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+                // Swap arr[i] and arr[j]
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        
+        // Place pivot in correct position
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+        
+        return i + 1;  // Return pivot's final position
+    }
+    
+    // Wrapper method
+    public static void quickSort(int[] arr) {
+        quickSort(arr, 0, arr.length - 1);
+    }
+    
+    public static void main(String[] args) {
+        // Test Case 1: [10, 7, 8, 9, 1, 5]
+        int[] arr1 = {10, 7, 8, 9, 1, 5};
+        System.out.println("Input: " + java.util.Arrays.toString(arr1));
+        quickSort(arr1.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr1));
+        System.out.println();
+        
+        // Test Case 2: [1, 1, 1, 1] (all equal elements)
+        int[] arr2 = {1, 1, 1, 1};
+        System.out.println("Input: " + java.util.Arrays.toString(arr2));
+        quickSort(arr2.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr2));
+    }
+}
+==================================
+Q6. Sorting Strings (Lexicographic Order) 
+Write a program to sort an array of strings using any sorting algorithm. 
+Test Cases: 
+• Input: ["apple", "banana", "cherry", "date"] → Output: ["apple", "banana", 
+"cherry", "date"] 
+• Input: ["dog", "cat", "elephant", "bee"] → Output: ["bee", "cat", "dog", 
+"elephant"]
+----------------------
+public class StringSortLexicographic {
+    
+    public static void bubbleSortStrings(String[] arr) {
+        int n = arr.length;
+        
+        // Outer loop: n-1 passes maximum
+        for (int i = 0; i < n - 1; i++) {
+            // Inner loop: compare adjacent strings
+            for (int j = 0; j < n - i - 1; j++) {
+                // Swap if current string > next string (lexicographically)
+                if (arr[j].compareTo(arr[j + 1]) > 0) {
+                    String temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+    
+    public static void main(String[] args) {
+        // Test Case 1: Already sorted
+        String[] arr1 = {"apple", "banana", "cherry", "date"};
+        System.out.println("Input: " + java.util.Arrays.toString(arr1));
+        bubbleSortStrings(arr1.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr1));
+        System.out.println();
+        
+        // Test Case 2: Needs sorting
+        String[] arr2 = {"dog", "cat", "elephant", "bee"};
+        System.out.println("Input: " + java.util.Arrays.toString(arr2));
+        bubbleSortStrings(arr2.clone());
+        System.out.println("Output: " + java.util.Arrays.toString(arr2));
+    }
+}
+===================================
+Q7. Create a Binary Tree & Print Preorder Traversal 
+Write a program to create a binary tree and print its preorder traversal. 
+Test Case: 
+Tree: 
+ 1 
+ / \ 
+ 2 3 
+ / \ 
+ 4 5 
+Expected Output (Preorder): 1 2 4 5 3
+-------------
+// Node class for binary tree
+class Node {
+    int data;
+    Node left, right;
+    
+    // Constructor
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class BinaryTreePreorder {
+    
+    // Preorder traversal: ROOT → LEFT → RIGHT
+    public static void preorder(Node root) {
+        if (root == null) {
+            return;
+        }
+        // 1. Visit root first
+        System.out.print(root.data + " ");
+        // 2. Traverse left subtree
+        preorder(root.left);
+        // 3. Traverse right subtree
+        preorder(root.right);
+    }
+    
+    public static void main(String[] args) {
+        // Create EXACT test case tree:
+        //      1
+        //     / \
+        //    2   3
+        //   / \
+        //  4   5
+        
+        Node root = new Node(1);           // Root
+        root.left = new Node(2);           // Left child
+        root.right = new Node(3);          // Right child
+        root.left.left = new Node(4);      // Left-left
+        root.left.right = new Node(5);     // Left-right
+        
+        System.out.println("Tree Structure:");
+        System.out.println("    1");
+        System.out.println("   / \\");
+        System.out.println("  2   3");
+        System.out.println(" / \\");
+        System.out.println("4   5");
+        System.out.println();
+        
+        System.out.println("Expected Output (Preorder): 1 2 4 5 3");
+        System.out.print("Actual Output: ");
+        preorder(root);  // Prints: 1 2 4 5 3
+        System.out.println();
+    }
+}
+=================================
+Q8
+Q8. Inorder, Preorder, Postorder Traversals 
+Implement recursive functions to print inorder, preorder, and postorder traversals. 
+Test Case: 
+Tree: 
+ 10 
+ / \ 
+ 20 30 
+ / \ 
+ 40 50 
+• Inorder: 40 20 50 10 30 
+• Preorder: 10 20 40 50 30 
+• Postorder: 40 50 20 30 10
+---------------
+// Node class for binary tree
+class Node {
+    int data;
+    Node left, right;
+    
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class TreeTraversals {
+    
+    // INORDER: LEFT → ROOT → RIGHT
+    public static void inorder(Node root) {
+        if (root == null) return;
+        inorder(root.left);           // 1. Left
+        System.out.print(root.data + " ");  // 2. Root
+        inorder(root.right);          // 3. Right
+    }
+    
+    // PREORDER: ROOT → LEFT → RIGHT
+    public static void preorder(Node root) {
+        if (root == null) return;
+        System.out.print(root.data + " ");  // 1. Root
+        preorder(root.left);          // 2. Left
+        preorder(root.right);         // 3. Right
+    }
+    
+    // POSTORDER: LEFT → RIGHT → ROOT
+    public static void postorder(Node root) {
+        if (root == null) return;
+        postorder(root.left);         // 1. Left
+        postorder(root.right);        // 2. Right
+        System.out.print(root.data + " ");  // 3. Root
+    }
+    
+    public static void main(String[] args) {
+        // Create EXACT test case tree:
+        //      10
+        //     /  \
+        //    20   30
+        //   /  \
+        //  40  50
+        
+        Node root = new Node(10);
+        root.left = new Node(20);
+        root.right = new Node(30);
+        root.left.left = new Node(40);
+        root.left.right = new Node(50);
+        
+        System.out.println("Tree Structure:");
+        System.out.println("     10");
+        System.out.println("    /  \\");
+        System.out.println("   20   30");
+        System.out.println("  /  \\");
+        System.out.println(" 40  50");
+        System.out.println();
+        
+        // Test all three traversals
+        System.out.println("Inorder: 40 20 50 10 30");
+        System.out.print("Actual:   ");
+        inorder(root);
+        System.out.println();
+        
+        System.out.println("Preorder: 10 20 40 50 30");
+        System.out.print("Actual:   ");
+        preorder(root);
+        System.out.println();
+        
+        System.out.println("Postorder: 40 50 20 30 10");
+        System.out.print("Actual:   ");
+        postorder(root);
+        System.out.println();
+    }
+}
+======================================
+Q9
+Q9. Level Order Traversal (BFS) 
+Implement level-order traversal of a binary tree. 
+Test Case: 
+Tree: 
+ 1 
+ / \ 
+ 2 3 
+ / \ / \ 
+ 4 5 6 7 
+Output: 1 2 3 4 5 6 7
+--------------
+import java.util.LinkedList;
+import java.util.Queue;
+
+// Node class for binary tree
+class Node {
+    int data;
+    Node left, right;
+    
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class LevelOrderTraversal {
+    
+    // Level Order Traversal using BFS (Queue)
+    public static void levelOrder(Node root) {
+        if (root == null) return;
+        
+        // Create queue and add root
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        
+        while (!queue.isEmpty()) {
+            // Process current node
+            Node current = queue.poll();
+            System.out.print(current.data + " ");
+            
+            // Add children to queue for next level
+            if (current.left != null) {
+                queue.offer(current.left);
+            }
+            if (current.right != null) {
+                queue.offer(current.right);
+            }
+        }
+    }
+    
+    public static void main(String[] args) {
+        // Create EXACT test case tree (complete binary tree):
+        //          1
+        //        /   \
+        //       2     3
+        //      / \   / \
+        //     4   5 6   7
+        
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+        
+        System.out.println("Tree Structure:");
+        System.out.println("          1");
+        System.out.println("        /   \\");
+        System.out.println("       2     3");
+        System.out.println("      / \\   / \\");
+        System.out.println("     4   5 6   7");
+        System.out.println();
+        
+        System.out.println("Expected Output: 1 2 3 4 5 6 7");
+        System.out.print("Actual Output:   ");
+        levelOrder(root);
+        System.out.println();
+    }
+}
+==========================
+Q10
+Q10. Insert into a BST 
+Write a program to insert nodes into a BST and print inorder traversal. 
+Test Case: 
+Insert: 50, 30, 20, 40, 70, 60, 80 
+Tree (BST) Inorder: 20 30 40 50 60 70 80 
+Q10. Search in BST 
+Write a program to search for a value in a BST. Return true if found, false otherwise. 
+Test Case: 
+BST from Q4 → Search for 40 → Output: Found 
+BST from Q4 → Search for 90 → Output: Not Found
+------------
+// Node class for BST
+class Node {
+    int data;
+    Node left, right;
+    
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class BSTInsertSearch {
+    
+    // INSERT into BST
+    public static Node insert(Node root, int data) {
+        // Empty tree case
+        if (root == null) {
+            return new Node(data);
+        }
+        
+        // BST Property: left < root < right
+        if (data < root.data) {
+            root.left = insert(root.left, data);  // Insert in left subtree
+        } else if (data > root.data) {
+            root.right = insert(root.right, data); // Insert in right subtree
+        }
+        // If equal, do nothing (no duplicates)
+        return root;
+    }
+    
+    // INORDER traversal (sorted order for BST)
+    public static void inorder(Node root) {
+        if (root == null) return;
+        inorder(root.left);
+        System.out.print(root.data + " ");
+        inorder(root.right);
+    }
+    
+    // SEARCH in BST
+    public static boolean search(Node root, int data) {
+        // Empty tree
+        if (root == null) {
+            return false;
+        }
+        
+        // Found
+        if (root.data == data) {
+            return true;
+        }
+        
+        // BST Property search
+        if (data < root.data) {
+            return search(root.left, data);   // Search left
+        } else {
+            return search(root.right, data);  // Search right
+        }
+    }
+    
+    public static void main(String[] args) {
+        Node root = null;
+        
+        // Test Case 1: Insert sequence
+        System.out.println("=== Q10. Insert into BST ===");
+        int[] insertSeq = {50, 30, 20, 40, 70, 60, 80};
+        System.out.print("Insert: ");
+        for (int val : insertSeq) {
+            root = insert(root, val);
+            System.out.print(val + " ");
+        }
+        System.out.println();
+        
+        System.out.println("Expected Tree (BST) Inorder: 20 30 40 50 60 70 80");
+        System.out.print("Actual Output: ");
+        inorder(root);
+        System.out.println();
+        
+        System.out.println();
+        
+        // Test Case 2: Search operations
+        System.out.println("=== Q10. Search in BST ===");
+        System.out.println("Search for 40 → Expected: Found");
+        System.out.println("Result: " + (search(root, 40) ? "Found" : "Not Found"));
+        
+        System.out.println("Search for 90 → Expected: Not Found");
+        System.out.println("Result: " + (search(root, 90) ? "Found" : "Not Found"));
+    }
+}
+==============================
+Q11
+Q11. Minimum & Maximum Node in BST 
+Find the smallest and largest element in a BST. 
+Test Case: 
+BST from Q4 → Min: 20, Max: 80
+----------
+// Node class for BST (same as Q10)
+class Node {
+    int data;
+    Node left, right;
+    
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class BSTMinMax {
+    
+    // Find MINIMUM node (leftmost node in BST)
+    public static int findMin(Node root) {
+        if (root == null) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+        
+        Node current = root;
+        // Go left until no more left child
+        while (current.left != null) {
+            current = current.left;
+        }
+        return current.data;
+    }
+    
+    // Find MAXIMUM node (rightmost node in BST)  
+    public static int findMax(Node root) {
+        if (root == null) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+        
+        Node current = root;
+        // Go right until no more right child
+        while (current.right != null) {
+            current = current.right;
+        }
+        return current.data;
+    }
+    
+    // Helper: Insert into BST (same as Q10)
+    public static Node insert(Node root, int data) {
+        if (root == null) return new Node(data);
+        if (data < root.data) {
+            root.left = insert(root.left, data);
+        } else if (data > root.data) {
+            root.right = insert(root.right, data);
+        }
+        return root;
+    }
+    
+    // Helper: Inorder traversal to verify BST
+    public static void inorder(Node root) {
+        if (root == null) return;
+        inorder(root.left);
+        System.out.print(root.data + " ");
+        inorder(root.right);
+    }
+    
+    public static void main(String[] args) {
+        Node root = null;
+        
+        // Build BST from Q10 test case
+        int[] insertSeq = {50, 30, 20, 40, 70, 60, 80};
+        for (int val : insertSeq) {
+            root = insert(root, val);
+        }
+        
+        System.out.println("=== Q11. Minimum & Maximum Node in BST ===");
+        System.out.println("BST from Q10 (Inorder): 20 30 40 50 60 70 80");
+        System.out.print("Verification: ");
+        inorder(root);
+        System.out.println();
+        System.out.println();
+        
+        // Test Case Results
+        System.out.println("Expected: Min: 20, Max: 80");
+        System.out.println("Min Node: " + findMin(root));
+        System.out.println("Max Node: " + findMax(root));
+    }
+}
+=======================
+Q12
+Q12. Height of Binary Tree 
+Write a recursive function to find the height of a binary tree. 
+Test Case: 
+Tree: 
+ 1 
+ / \ 
+ 2 3 
+ / \ 
+ 4 5 
+Height = 3
+------------
+// Node class for binary tree
+class Node {
+    int data;
+    Node left, right;
+    
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class BinaryTreeHeight {
+    
+    // RECURSIVE height calculation
+    public static int height(Node root) {
+        // Base case: empty tree has height 0
+        if (root == null) {
+            return 0;
+        }
+        
+        // Height = 1 + max(leftHeight, rightHeight)
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+        
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+    
+    public static void main(String[] args) {
+        // Create EXACT test case tree:
+        //      1           Height calculation:
+        //     / \          leftHeight = height(2) = 2
+        //    2   3         rightHeight = height(3) = 1
+        //   / \                 Height = 1 + max(2,1) = 3 ✓
+        //  4   5
+        
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        
+        System.out.println("Tree Structure:");
+        System.out.println("      1");
+        System.out.println("     / \\");
+        System.out.println("    2   3");
+        System.out.println("   / \\");
+        System.out.println("  4   5");
+        System.out.println();
+        
+        System.out.println("Expected Height = 3");
+        System.out.println("Actual Height = " + height(root));
+    }
+}
+===========================
+Q13
+Q13. Check if a Binary Tree is Balanced 
+A balanced tree means the height difference of left and right subtrees for every node is 
+≤ 1. 
+Test Cases: 
+• Input: Balanced tree → Output: True 
+• Input: Skewed tree (like linked list: 1→2→3→4) → Output: False
+-----------
+// Node class for binary tree
+class Node {
+    int data;
+    Node left, right;
+    
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class BalancedBinaryTree {
+    
+    // Check if tree is balanced AND return height
+    public static int isBalanced(Node root) {
+        // Base case: empty tree is balanced, height = 0
+        if (root == null) {
+            return 0;
+        }
+        
+        // Check left subtree
+        int leftHeight = isBalanced(root.left);
+        if (leftHeight == -1) {
+            return -1;  // Left subtree unbalanced
+        }
+        
+        // Check right subtree
+        int rightHeight = isBalanced(root.right);
+        if (rightHeight == -1) {
+            return -1;  // Right subtree unbalanced
+        }
+        
+        // Check height difference <= 1
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return -1;  // Current node unbalanced
+        }
+        
+        // Return height of current tree
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+    
+    public static void main(String[] args) {
+        // Test Case 1: BALANCED tree (Height difference <= 1 everywhere)
+        System.out.println("=== Test Case 1: Balanced Tree ===");
+        Node balancedRoot = new Node(1);
+        balancedRoot.left = new Node(2);
+        balancedRoot.right = new Node(3);
+        balancedRoot.left.left = new Node(4);
+        balancedRoot.left.right = new Node(5);
+        
+        System.out.println("Tree:");
+        System.out.println("      1");
+        System.out.println("     / \\");
+        System.out.println("    2   3");
+        System.out.println("   / \\");
+        System.out.println("  4   5");
+        
+        int result1 = isBalanced(balancedRoot);
+        System.out.println("Expected: True");
+        System.out.println("Actual:   " + (result1 != -1 ? "True" : "False"));
+        System.out.println();
+        
+        // Test Case 2: SKEWED tree (like linked list)
+        System.out.println("=== Test Case 2: Skewed Tree ===");
+        Node skewedRoot = new Node(1);
+        skewedRoot.right = new Node(2);
+        skewedRoot.right.right = new Node(3);
+        skewedRoot.right.right.right = new Node(4);
+        
+        System.out.println("Skewed Tree: 1→2→3→4");
+        
+        int result2 = isBalanced(skewedRoot);
+        System.out.println("Expected: False");
+        System.out.println("Actual:   " + (result2 != -1 ? "True" : "False"));
+    }
+}
+=================================
+Q14
+Q14. Convert Sorted Array to Balanced BST 
+Write a program to convert a sorted array into a balanced BST. 
+Test Case: 
+Input: [1, 2, 3, 4, 5, 6, 7] 
+Output (Preorder example): 4 2 1 3 6 5 7
+-----------------
+// Node class for BST
+class Node {
+    int data;
+    Node left, right;
+    
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class SortedArrayToBalancedBST {
+    
+    // RECURSIVELY build balanced BST from sorted array
+    public static Node sortedArrayToBST(int[] arr, int start, int end) {
+        // Base case: no elements
+        if (start > end) {
+            return null;
+        }
+        
+        // Choose middle element as root (balanced)
+        int mid = start + (end - start) / 2;
+        Node root = new Node(arr[mid]);
+        
+        // Recursively build left subtree (smaller elements)
+        root.left = sortedArrayToBST(arr, start, mid - 1);
+        
+        // Recursively build right subtree (larger elements)
+        root.right = sortedArrayToBST(arr, mid + 1, end);
+        
+        return root;
+    }
+    
+    // Wrapper method
+    public static Node sortedArrayToBST(int[] arr) {
+        return sortedArrayToBST(arr, 0, arr.length - 1);
+    }
+    
+    // PREORDER traversal to verify
+    public static void preorder(Node root) {
+        if (root == null) return;
+        System.out.print(root.data + " ");
+        preorder(root.left);
+        preorder(root.right);
+    }
+    
+    public static void main(String[] args) {
+        // Test Case: [1, 2, 3, 4, 5, 6, 7]
+        int[] arr = {1, 2, 3, 4, 5, 6, 7};
+        
+        System.out.println("Input: [1, 2, 3, 4, 5, 6, 7]");
+        System.out.println("Expected Output (Preorder): 4 2 1 3 6 5 7");
+        System.out.print("Actual Output: ");
+        
+        Node root = sortedArrayToBST(arr);
+        preorder(root);
+        System.out.println();
+    }
+}
+===============================
+==================================
