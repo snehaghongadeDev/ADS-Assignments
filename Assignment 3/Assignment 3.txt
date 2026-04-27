@@ -1,0 +1,735 @@
+Q1. Create a LinkedList and insert elements at the end. 
+Testcase: 
+Existing LinkedList: [5, 10, 15] 
+Elements to insert: [20, 25] 
+Expected Output: LinkedList: 5 → 10 → 15 → 20 → 25
+--------------------Ans---------
+
+class Node {
+    int data;
+    Node next;
+    
+    // Constructor
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListInsertEnd {
+    Node head;
+    
+    // Insert at end of linked list
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        
+        // If list is empty, make new node as head
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        
+        // Traverse to last node
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        
+        // Link last node to new node
+        current.next = newNode;
+    }
+    
+    // Print linked list
+    public void printList() {
+        Node current = head;
+        System.out.print("LinkedList: ");
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" → ");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        LinkedListInsertEnd list = new LinkedListInsertEnd();
+        
+        // Test case: Existing [5, 10, 15], insert [20, 25]
+        System.out.println("=== Test Case ===");
+        list.insertAtEnd(5);
+        list.insertAtEnd(10);
+        list.insertAtEnd(15);
+        System.out.print("Existing LinkedList: [5, 10, 15]\n");
+        
+        list.insertAtEnd(20);
+        list.insertAtEnd(25);
+        System.out.print("Elements to insert: [20, 25]\n");
+        list.printList();
+        // Output: LinkedList: 5 → 10 → 15 → 20 → 25 ✓
+    }
+}
+==============================
+Q2Insert a new node at the beginning of a LinkedList. 
+Testcase: 
+Existing LinkedList: [10, 20, 30] 
+Node to insert: 5 
+Expected Output: LinkedList: 5 → 10 → 20 → 30
+-----------------Ans-------
+
+class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListInsertBeginning {
+    Node head;
+    
+    // Insert at beginning of linked list - O(1) operation
+    public void insertAtBeginning(int data) {
+        Node newNode = new Node(data);
+        
+        // Make new node's next point to current head
+        newNode.next = head;
+        
+        // Make new node the new head
+        head = newNode;
+    }
+    
+    // Print linked list
+    public void printList() {
+        Node current = head;
+        System.out.print("LinkedList: ");
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" → ");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        LinkedListInsertBeginning list = new LinkedListInsertBeginning();
+        
+        // Test case: Existing [10, 20, 30], insert 5 at beginning
+        System.out.println("=== Test Case ===");
+        list.insertAtBeginning(10);
+        list.insertAtBeginning(20);
+        list.insertAtBeginning(30);
+        System.out.print("Existing LinkedList: [10, 20, 30]\n");
+        
+        list.insertAtBeginning(5);
+        System.out.print("Node to insert: 5\n");
+        list.printList();
+        // Output: LinkedList: 5 → 10 → 20 → 30 ✓
+    }
+}
+=========================
+Q3Insert a new node at a given position in a LinkedList. 
+Testcase: 
+Existing LinkedList: [10, 20, 30, 40] 
+Node to insert: 25 at position 2 
+Expected Output: LinkedList: 10 → 20 → 25 → 30 → 40
+---------------Ans---------
+
+Insert a new node at a given position in a LinkedList. 
+Testcase: 
+Existing LinkedList: [10, 20, 30, 40] 
+Node to insert: 25 at position 2 
+Expected Output: LinkedList: 10 → 20 → 25 → 30 → 40
+-----------
+class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListInsertPosition {
+    Node head;
+    
+    // Insert at specific position (0-based index)
+    public void insertAtPosition(int data, int position) {
+        Node newNode = new Node(data);
+        
+        // Position 0: Insert at beginning
+        if (position == 0) {
+            newNode.next = head;
+            head = newNode;
+            return;
+        }
+        
+        // Traverse to node before insertion point
+        Node current = head;
+        for (int i = 0; i < position - 1 && current != null; i++) {
+            current = current.next;
+        }
+        
+        // Invalid position check
+        if (current == null) {
+            System.out.println("Position " + position + " is invalid!");
+            return;
+        }
+        
+        // Insert node: current.next = newNode.next, newNode.next = current.next
+        newNode.next = current.next;
+        current.next = newNode;
+    }
+    
+    // Print linked list
+    public void printList() {
+        Node current = head;
+        System.out.print("LinkedList: ");
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" → ");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        LinkedListInsertPosition list = new LinkedListInsertPosition();
+        
+        // Test case: Existing [10, 20, 30, 40], insert 25 at position 2
+        System.out.println("=== Test Case ===");
+        list.insertAtPosition(10, 0);
+        list.insertAtPosition(20, 1);
+        list.insertAtPosition(30, 2);
+        list.insertAtPosition(40, 3);
+        System.out.print("Existing LinkedList: [10, 20, 30, 40]\n");
+        
+        list.insertAtPosition(25, 2);  // Position 2 (0-based)
+        System.out.print("Node to insert: 25 at position 2\n");
+        list.printList();
+        // Output: LinkedList: 10 → 20 → 25 → 30 → 40 ✓
+    }
+}
+============================
+Q4
+Delete the first node of a LinkedList 
+Testcase: 
+Existing LinkedList: [10, 20, 30, 40] 
+Expected Output: LinkedList: 20 → 30 → 40
+------------------Ans-------
+
+class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListDeleteFirst {
+    Node head;
+    
+    // Delete first node - O(1) operation
+    public void deleteFirst() {
+        // Check if list is empty
+        if (head == null) {
+            System.out.println("List is empty!");
+            return;
+        }
+        
+        // Store first node to "delete" it (Java GC handles memory)
+        Node temp = head;
+        head = head.next;  // Move head to second node
+        temp.next = null;  // Optional: detach old head
+    }
+    
+    // Insert at end (for building test case)
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+    
+    // Print linked list
+    public void printList() {
+        Node current = head;
+        System.out.print("LinkedList: ");
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" → ");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        LinkedListDeleteFirst list = new LinkedListDeleteFirst();
+        
+        // Test case: Existing [10, 20, 30, 40]
+        System.out.println("=== Test Case ===");
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+        list.insertAtEnd(40);
+        System.out.print("Existing LinkedList: [10, 20, 30, 40]\n");
+        
+        list.deleteFirst();
+        list.printList();
+        // Output: LinkedList: 20 → 30 → 40 ✓
+    }
+}
+==============================
+Q5
+Delete the last node of a LinkedList. 
+Testcase: 
+Existing LinkedList: [10, 20, 30, 40] 
+Expected Output: LinkedList: 10 → 20 → 30
+------------------Ans----
+class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListDeleteLast {
+    Node head;
+    
+    // Delete last node - O(n) operation
+    public void deleteLast() {
+        // Empty list
+        if (head == null) {
+            System.out.println("List is empty!");
+            return;
+        }
+        
+        // Single node: make list empty
+        if (head.next == null) {
+            head = null;
+            return;
+        }
+        
+        // Find second last node
+        Node current = head;
+        while (current.next.next != null) {
+            current = current.next;
+        }
+        
+        // Disconnect last node
+        current.next = null;
+    }
+    
+    // Insert at end (for building test case)
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+    
+    // Print linked list
+    public void printList() {
+        Node current = head;
+        System.out.print("LinkedList: ");
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" → ");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        LinkedListDeleteLast list = new LinkedListDeleteLast();
+        
+        // Test case: Existing [10, 20, 30, 40]
+        System.out.println("=== Test Case ===");
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+        list.insertAtEnd(40);
+        System.out.print("Existing LinkedList: [10, 20, 30, 40]\n");
+        
+        list.deleteLast();
+        list.printList();
+        // Output: LinkedList: 10 → 20 → 30 ✓
+    }
+}
+======================
+Q6
+Delete a node by its value in a LinkedList. 
+Testcase: 
+Existing LinkedList: [10, 20, 30, 40] 
+Node to delete: 30 
+Expected Output: LinkedList: 10 → 20 → 40
+-------------------Ans----------
+class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListDeleteByValue {
+    Node head;
+    
+    // Delete node with given value
+    public void deleteByValue(int value) {
+        // Empty list
+        if (head == null) {
+            System.out.println("List is empty!");
+            return;
+        }
+        
+        // If first node has the value
+        if (head.data == value) {
+            head = head.next;
+            return;
+        }
+        
+        // Traverse to find node and its previous
+        Node current = head;
+        while (current.next != null && current.next.data != value) {
+            current = current.next;
+        }
+        
+        // If value not found
+        if (current.next == null) {
+            System.out.println("Value " + value + " not found!");
+            return;
+        }
+        
+        // Delete: skip the target node
+        current.next = current.next.next;
+    }
+    
+    // Insert at end (for building test case)
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+    
+    // Print linked list
+    public void printList() {
+        Node current = head;
+        System.out.print("LinkedList: ");
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" → ");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        LinkedListDeleteByValue list = new LinkedListDeleteByValue();
+        
+        // Test case: Existing [10, 20, 30, 40], delete 30
+        System.out.println("=== Test Case ===");
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+        list.insertAtEnd(40);
+        System.out.print("Existing LinkedList: [10, 20, 30, 40]\n");
+        System.out.print("Node to delete: 30\n");
+        
+        list.deleteByValue(30);
+        list.printList();
+        // Output: LinkedList: 10 → 20 
+====================================
+Q7Search for an element in a LinkedList. 
+Testcase: 
+Existing LinkedList: [10, 20, 30, 40] 
+Element to search: 30 
+Expected Output: Element found at index 2
+----------------------Ans-------
+class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListSearch {
+    Node head;
+    
+    // Search for element and return its index (0-based)
+    public void searchElement(int value) {
+        Node current = head;
+        int index = 0;
+        
+        while (current != null) {
+            if (current.data == value) {
+                System.out.println("Element found at index " + index);
+                return;
+            }
+            current = current.next;
+            index++;
+        }
+        
+        System.out.println("Element " + value + " not found!");
+    }
+    
+    // Insert at end (for building test case)
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+    
+    // Print linked list
+    public void printList() {
+        Node current = head;
+        System.out.print("LinkedList: ");
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" → ");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        LinkedListSearch list = new LinkedListSearch();
+        
+        // Test case: Existing [10, 20, 30, 40], search 30
+        System.out.println("=== Test Case ===");
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+        list.insertAtEnd(40);
+        System.out.print("Existing LinkedList: [10, 20, 30, 40]\n");
+        System.out.print("Element to search: 30\n");
+        
+        list.printList();
+        list.searchElement(30);
+        // Output: Element found at index 2 ✓
+    }
+}
+================================
+Q8
+Count the total number of nodes in a LinkedList. 
+Testcase: 
+Existing LinkedList: [10, 20, 30, 40] 
+Expected Output: Total nodes: 4
+-------------Ans------
+
+class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListCountNodes {
+    Node head;
+    
+    // Count total nodes in linked list
+    public void countNodes() {
+        int count = 0;
+        Node current = head;
+        
+        while (current != null) {
+            count++;
+            current = current.next;
+        }
+        
+        System.out.println("Total nodes: " + count);
+    }
+    
+    // Insert at end (for building test case)
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+    
+    // Print linked list
+    public void printList() {
+        Node current = head;
+        System.out.print("LinkedList: ");
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" → ");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        LinkedListCountNodes list = new LinkedListCountNodes();
+        
+        // Test case: Existing [10, 20, 30, 40]
+        System.out.println("=== Test Case ===");
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+        list.insertAtEnd(40);
+        System.out.print("Existing LinkedList: [10, 20, 30, 40]\n");
+        
+        list.printList();
+        list.countNodes();
+        // Output: Total nodes: 4 ✓
+    }
+}
+==============================
+Q9
+Reverse a LinkedList. 
+Testcase: 
+Existing LinkedList: [10, 20, 30, 40] 
+Expected Output: LinkedList: 40 → 30 → 20 → 10 
+Existing LinkedList: [] 
+Expected Output: LinkedList: (empty)
+-------------------Ans----------
+class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListReverse {
+    Node head;
+    
+    // Reverse linked list iteratively - O(n) time, O(1) space
+    public void reverse() {
+        Node prev = null;
+        Node current = head;
+        
+        // Three pointers technique
+        while (current != null) {
+            Node nextTemp = current.next;  // Store next
+            current.next = prev;           // Reverse link
+            prev = current;                // Move prev
+            current = nextTemp;            // Move current
+        }
+        
+        head = prev;  // New head is last visited node
+    }
+    
+    // Insert at end (for building test case)
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+    
+    // Print linked list
+    public void printList() {
+        if (head == null) {
+            System.out.println("LinkedList: (empty)");
+            return;
+        }
+        Node current = head;
+        System.out.print("LinkedList: ");
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" → ");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        LinkedListReverse list1 = new LinkedListReverse();
+        
+        // Test case 1: [10, 20, 30, 40]
+        System.out.println("=== Test Case 1 ===");
+        list1.insertAtEnd(10);
+        list1.insertAtEnd(20);
+        list1.insertAtEnd(30);
+        list1.insertAtEnd(40);
+        System.out.print("Existing LinkedList: [10, 20, 30, 40]\n");
+        list1.printList();
+        
+        list1.reverse();
+        list1.printList();  // 40 → 30 → 20 → 10 ✓
+        
+        System.out.println("\n=== Test Case 2 (Empty List) ===");
+        LinkedListReverse list2 = new LinkedListReverse();
+        System.out.print("Existing LinkedList: []\n");
+        list2.printList();  // LinkedList: (empty) ✓
+        list2.reverse();    // Works on empty list
+        list2.printList();
+    }
+}
+=============================
